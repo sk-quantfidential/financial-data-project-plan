@@ -1,0 +1,25 @@
+milestones:
+  - title: Define Core ProtoBuf Schemas
+    description: Create and validate schemas for financial data types
+    due_on: 2025-09-10
+    issues:
+      - title: Define L1 market data schema
+        labels: [schema, milestone]
+      - title: Define L2 market data schema
+        labels: [schema, milestone]
+      - title: Define candle aggregated data schema
+        labels: [schema, milestone]
+      - title: Define rate value schema
+        labels: [schema, milestone]
+      - title: Define index value schema
+        labels: [schema, milestone]
+      - title: Define economic indicator schema
+        labels: [schema, milestone]
+      - title: Define metadata schema
+        labels: [schema, milestone]
+      - title: Define securities info schema
+        labels: [schema, milestone]
+      - title: Define corporate actions schema
+        labels: [schema, milestone]
+      - title: Validate schemas with protoc
+        labels: [schema, milestone]

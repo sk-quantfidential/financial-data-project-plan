@@ -1,0 +1,17 @@
+milestones:
+  - title: Initial Info-Sec Audit
+    description: Review and secure MVP codebase
+    due_on: 2025-09-30
+    issues:
+      - title: Run static analysis tools (cargo-audit, npm audit)
+        labels: [security, milestone]
+      - title: Review OAuth2 implementation for token handling
+        labels: [security, backend, milestone]
+      - title: Validate input sanitization and error handling
+        labels: [security, milestone]
+      - title: Check for exposed secrets or credentials
+        labels: [security, milestone]
+      - title: Document security posture and remediation plan
+        labels: [security, milestone]
+      - title: Schedule periodic security reviews
+        labels: [security, milestone]

@@ -1,0 +1,25 @@
+name: Sync Project Milestones and Issues
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync-projects:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project plan repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install PyYAML requests
+
+      - name: Run sync script
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          python3 .github/scripts/sync_projects.py

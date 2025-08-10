@@ -1,0 +1,23 @@
+milestones:
+  - title: Observability Backbone
+    description: Add Prometheus metrics and Grafana dashboards
+    due_on: 2025-09-25
+    issues:
+      - title: Integrate Prometheus client into Rust API
+        labels: [observability, backend, milestone]
+      - title: Expose /metrics endpoint
+        labels: [observability, backend, milestone]
+      - title: Track request latency, error rates, and DB query times
+        labels: [observability, backend, milestone]
+      - title: Add Prometheus client to SOFR uploader
+        labels: [observability, backend, milestone]
+      - title: Configure Prometheus scrape targets
+        labels: [observability, infra, milestone]
+      - title: Set up Grafana instance
+        labels: [observability, frontend, milestone]
+      - title: Connect Grafana to Prometheus
+        labels: [observability, infra, milestone]
+      - title: Create dashboards for API latency and ingestion success
+        labels: [observability, frontend, milestone]
+      - title: Add alerting rules
+        labels: [observability, infra, milestone]

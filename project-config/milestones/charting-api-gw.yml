@@ -1,0 +1,17 @@
+milestones:
+  - title: MVP API Gateway
+    description: Deliver initial REST API with local storage and static data
+    due_on: 2025-09-15
+    issues:
+      - title: Scaffold Rust project using axum
+        labels: [backend, milestone]
+      - title: Define initial data structures (candle, L1/L2)
+        labels: [backend, milestone]
+      - title: Load pre-generated financial data from local files
+        labels: [backend, milestone]
+      - title: Implement REST endpoints to serve charting data
+        labels: [backend, milestone]
+      - title: Add basic error handling and logging
+        labels: [backend, milestone]
+      - title: Dockerize the service
+        labels: [backend, milestone]
