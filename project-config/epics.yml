@@ -1,0 +1,44 @@
+# project-config/epics.yml
+
+epics:
+  - id: epic-1
+    title: Create Initial charting-api-gw in Rust
+    description: Build a Rust-based REST API gateway that serves static financial data from local storage.
+    repos: [financial-data-charting-api-gw-rust]
+    labels: [epic, backend]
+
+  - id: epic-2
+    title: Create Initial charting-app in JS
+    description: Build a Next.js frontend that fetches and visualizes financial data from the API gateway.
+    repos: [financial-data-charting-app-js]
+    labels: [epic, frontend]
+
+  - id: epic-3
+    title: Create Persistent TimescaleDB Service
+    description: Integrate TimescaleDB for time-series data persistence in the Rust API.
+    repos: [financial-data-charting-api-gw-rust]
+    labels: [epic, backend, infra]
+
+  - id: epic-4
+    title: Create Data Uploader for US Federal SOFR Data
+    description: Build a Rust service to fetch, parse, and upload SOFR data into TimescaleDB.
+    repos: [financial-data-charting-api-gw-rust]
+    labels: [epic, backend, data-ingestion]
+
+  - id: epic-5
+    title: Implement Observability Backbone with Prometheus
+    description: Add metrics collection to all services using Prometheus.
+    repos: [financial-data-charting-api-gw-rust]
+    labels: [epic, observability]
+
+  - id: epic-6
+    title: Implement Grafana Observability Front-End
+    description: Visualize system metrics using Grafana dashboards.
+    repos: [financial-data-charting-app-js]
+    labels: [epic, observability, frontend]
+
+  - id: epic-7
+    title: Perform Info-Sec Security Audit
+    description: Ensure secure coding practices and identify vulnerabilities.
+    repos: [financial-data-charting-api-gw-rust, financial-data-charting-app-js]
+    labels: [epic, security]
