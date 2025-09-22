@@ -2,9 +2,9 @@ milestones:
   - title: MVP Charting Frontend
     description: Build a Next.js frontend to visualize financial data
     due_on: 2025-09-20
-    issues:
+    tasks:
       - title: Scaffold Next.js project
-        labels: [frontend, milestone]
+        labels: [frontend, ]
       - title: Implement charting component using react-chartjs-2
         labels: [frontend, milestone]
       - title: Fetch data from REST API and render charts

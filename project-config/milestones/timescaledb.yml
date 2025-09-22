@@ -1,0 +1,17 @@
+milestones:
+  - title: TimescaleDB Integration
+    description: Integrate TimescaleDB (PostgreSQL extension) for time-series data persistence
+    due_on: 2025-12-31
+    issues:
+      - title: Set up TimescaleDB instance
+        labels: [backend, database, milestone]
+      - title: Define schema for candle, L1/L2, and metadata
+        labels: [backend, database, milestone]
+      - title: Connect Rust API to TimescaleDB using sqlx
+        labels: [backend, database, milestone]
+      - title: Implement data ingestion and query logic
+        labels: [backend, database, milestone]
+      - title: Migrate pre-generated data into TimescaleDB
+        labels: [backend, database, milestone]
+      - title: Add health check endpoint for DB connectivity
+        labels: [backend, database, milestone]
