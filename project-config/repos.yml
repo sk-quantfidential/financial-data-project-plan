@@ -1,0 +1,47 @@
+# Financial Data Platform Repository Configuration
+
+repositories:
+  # Core Services (4 repositories)
+
+  - name: project-plan
+    type: project-coordination
+    language: markdown
+    domain: project-management
+    purpose: Master coordination repository for epic planning and cross-component coordination
+    epic: epic-FDP-0001
+    milestones:
+      - FDP-0001.01
+    status: active
+
+  - name: protobuf-schemas
+    type: schema-definition
+    language: protobuf
+    domain: data-modeling
+    purpose: Canonical source of truth for all financial data type definitions using Protocol Buffers
+    epic: epic-FDP-0001
+    milestones:
+      - FDP-0001.01
+      - FDP-0001.02
+    status: active
+
+  - name: charting-api-gw-rust
+    type: backend-service
+    language: rust
+    domain: data-processing
+    purpose: High-performance API gateway and backend services for financial data ingestion, processing, and serving
+    epic: epic-FDP-0001
+    milestones:
+      - FDP-0001.02
+      - FDP-0001.03
+    status: active
+
+  - name: charting-app-js
+    type: frontend-application
+    language: typescript
+    domain: data-visualization
+    purpose: Modern web application for financial data visualization, charting, and user interaction
+    epic: epic-FDP-0001
+    milestones:
+      - FDP-0001.03
+      - FDP-0001.04
+    status: active

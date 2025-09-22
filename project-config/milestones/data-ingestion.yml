@@ -1,0 +1,17 @@
+milestones:
+  - title: SOFR Data Uploader
+    description: Build a Rust service to fetch, parse, and upload SOFR data into TimescaleDB
+    due_on: 2026-03-31
+    issues:
+      - title: Identify SOFR data source (e.g., FRED, Treasury.gov)
+        labels: [backend, data-ingestion, milestone]
+      - title: Implement data fetcher with retry logic
+        labels: [backend, data-ingestion, milestone]
+      - title: Parse and normalize SOFR data
+        labels: [backend, data-ingestion, milestone]
+      - title: Define ProtoBuf schema for rate values
+        labels: [schema, data-ingestion, milestone]
+      - title: Insert SOFR data into TimescaleDB
+        labels: [backend, database, data-ingestion, milestone]
+      - title: Schedule periodic updates (e.g., daily)
+        labels: [backend, data-ingestion, milestone]
