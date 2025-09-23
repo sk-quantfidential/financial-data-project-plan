@@ -4,7 +4,7 @@
 **Title**: Create Initial charting-api-gw in Rust (Local Storage + Pre-Generated Data)
 **Goal**: Build a Rust-based REST API gateway that serves static financial data from local storage.
 **Target**: September 15, 2025
-**Status**: In Progress (2/16 behaviors complete)
+**Status**: In Progress (3/16 behaviors complete)
 **Components Involved**: API Gateway, ProtoBuf Schemas
 
 ### ✅ Completed (Cross-Component)
@@ -12,6 +12,7 @@
 |--------|-----------|-------------|-----|------|
 | `feature/epic-FDP-0001-define-l1-market-schema` | ProtoBuf Schemas | Define L1 market data schema | Pending | 2025-09-22 |
 | `feature/epic-FDP-0001-define-l2-market-schema` | ProtoBuf Schemas | Define L2 market data schema | Pending | 2025-09-22 |
+| `feature/epic-FDP-0001-define-candle-schema` | ProtoBuf Schemas | Define candle aggregated data schema | Pending | 2025-09-22 |
 
 ### 🚧 In Progress
 | Branch | Component | Description | Assignee | Status |
@@ -21,7 +22,6 @@
 ### 📋 Ready to Start (Priority Order)
 | Branch | Component | Description | Dependencies | Estimate |
 |--------|-----------|-------------|--------------|----------|
-| `feature/epic-FDP-0001-define-candle-schema` | ProtoBuf Schemas | Define candle aggregated data schema | L1/L2 schemas | 1 day |
 | `feature/epic-FDP-0001-define-rate-value-schema` | ProtoBuf Schemas | Define rate value schema | - | 1 day |
 | `feature/epic-FDP-0001-define-index-value-schema` | ProtoBuf Schemas | Define index value schema | - | 1 day |
 | `feature/epic-FDP-0001-define-economic-indicator-schema` | ProtoBuf Schemas | Define economic indicator schema | - | 1 day |
