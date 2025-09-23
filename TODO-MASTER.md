@@ -4,7 +4,7 @@
 **Title**: Create Initial charting-api-gw in Rust (Local Storage + Pre-Generated Data)
 **Goal**: Build a Rust-based REST API gateway that serves static financial data from local storage.
 **Target**: September 15, 2025
-**Status**: In Progress (6/16 behaviors complete)
+**Status**: In Progress (7/16 behaviors complete)
 **Components Involved**: API Gateway, ProtoBuf Schemas
 
 ### ✅ Completed (Cross-Component)
@@ -16,6 +16,7 @@
 | `feature/epic-FDP-0001-define-metadata-schema` | ProtoBuf Schemas | Define metadata schema | Pending | 2025-09-22 |
 | `feature/epic-FDP-0001-define-rate-value-schema` | ProtoBuf Schemas | Define rate value schema | Pending | 2025-09-23 |
 | `feature/epic-FDP-0001-define-index-value-schema` | ProtoBuf Schemas | Define index value schema | Pending | 2025-09-23 |
+| `feature/epic-FDP-0001-define-economic-indicator-schema` | ProtoBuf Schemas | Define economic indicator schema | Pending | 2025-09-23 |
 
 ### 🚧 In Progress
 | Branch | Component | Description | Assignee | Status |
@@ -25,7 +26,6 @@
 ### 📋 Ready to Start (Priority Order)
 | Branch | Component | Description | Dependencies | Estimate |
 |--------|-----------|-------------|--------------|----------|
-| `feature/epic-FDP-0001-define-economic-indicator-schema` | ProtoBuf Schemas | Define economic indicator schema | - | 1 day |
 | `feature/epic-FDP-0001-define-securities-info-schema` | ProtoBuf Schemas | Define securities info schema | - | 1 day |
 | `feature/epic-FDP-0001-define-corporate-actions-schema` | ProtoBuf Schemas | Define corporate actions schema | - | 1 day |
 | `feature/epic-FDP-0001-validate-schemas-protoc` | ProtoBuf Schemas | Validate schemas with protoc | All schemas | 0.5 days |
