@@ -4,7 +4,7 @@
 **Title**: Create Initial charting-api-gw in Rust (Local Storage + Pre-Generated Data)
 **Goal**: Build a Rust-based REST API gateway that serves static financial data from local storage.
 **Target**: September 15, 2025
-**Status**: In Progress (4/16 behaviors complete)
+**Status**: In Progress (6/16 behaviors complete)
 **Components Involved**: API Gateway, ProtoBuf Schemas
 
 ### ✅ Completed (Cross-Component)
@@ -14,6 +14,8 @@
 | `feature/epic-FDP-0001-define-l2-market-schema` | ProtoBuf Schemas | Define L2 market data schema | Pending | 2025-09-22 |
 | `feature/epic-FDP-0001-define-candle-schema` | ProtoBuf Schemas | Define candle aggregated data schema | Pending | 2025-09-22 |
 | `feature/epic-FDP-0001-define-metadata-schema` | ProtoBuf Schemas | Define metadata schema | Pending | 2025-09-22 |
+| `feature/epic-FDP-0001-define-rate-value-schema` | ProtoBuf Schemas | Define rate value schema | Pending | 2025-09-23 |
+| `feature/epic-FDP-0001-define-index-value-schema` | ProtoBuf Schemas | Define index value schema | Pending | 2025-09-23 |
 
 ### 🚧 In Progress
 | Branch | Component | Description | Assignee | Status |
@@ -23,8 +25,6 @@
 ### 📋 Ready to Start (Priority Order)
 | Branch | Component | Description | Dependencies | Estimate |
 |--------|-----------|-------------|--------------|----------|
-| `feature/epic-FDP-0001-define-rate-value-schema` | ProtoBuf Schemas | Define rate value schema | - | 1 day |
-| `feature/epic-FDP-0001-define-index-value-schema` | ProtoBuf Schemas | Define index value schema | - | 1 day |
 | `feature/epic-FDP-0001-define-economic-indicator-schema` | ProtoBuf Schemas | Define economic indicator schema | - | 1 day |
 | `feature/epic-FDP-0001-define-securities-info-schema` | ProtoBuf Schemas | Define securities info schema | - | 1 day |
 | `feature/epic-FDP-0001-define-corporate-actions-schema` | ProtoBuf Schemas | Define corporate actions schema | - | 1 day |
@@ -262,7 +262,7 @@ See: [charting-app-js/TODO.md](../charting-app-js/TODO.md)
 ### Component Progress
 | Component | Epic | Behaviors | Complete | In Progress | Blocked |
 |-----------|------|-----------|----------|-------------|---------|
-| ProtoBuf Schemas | epic-FDP-0001 | 10 | 0 (0%) | 0 | 0 |
+| ProtoBuf Schemas | epic-FDP-0001 | 10 | 6 (60%) | 0 | 0 |
 | API Gateway | epic-FDP-0001 | 6 | 0 (0%) | 0 | 0 |
 | Frontend | epic-FDP-0002 | 6 | 0 (0%) | 0 | 0 |
 
