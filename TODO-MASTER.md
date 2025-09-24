@@ -17,6 +17,7 @@
 | `feature/epic-FDP-0001-define-rate-value-schema` | ProtoBuf Schemas | Define rate value schema | Pending | 2025-09-23 |
 | `feature/epic-FDP-0001-define-index-value-schema` | ProtoBuf Schemas | Define index value schema | Pending | 2025-09-23 |
 | `feature/epic-FDP-0001-define-economic-indicator-schema` | ProtoBuf Schemas | Define economic indicator schema | Pending | 2025-09-23 |
+| `feature/epic-FDP-0001-define-securities-info-schema` | ProtoBuf Schemas | Define securities info schema | Pending | 2025-09-23 |
 
 ### 🚧 In Progress
 | Branch | Component | Description | Assignee | Status |
@@ -26,7 +27,6 @@
 ### 📋 Ready to Start (Priority Order)
 | Branch | Component | Description | Dependencies | Estimate |
 |--------|-----------|-------------|--------------|----------|
-| `feature/epic-FDP-0001-define-securities-info-schema` | ProtoBuf Schemas | Define securities info schema | - | 1 day |
 | `feature/epic-FDP-0001-define-corporate-actions-schema` | ProtoBuf Schemas | Define corporate actions schema | - | 1 day |
 | `feature/epic-FDP-0001-validate-schemas-protoc` | ProtoBuf Schemas | Validate schemas with protoc | All schemas | 0.5 days |
 | `feature/epic-FDP-0001-scaffold-rust-axum` | API Gateway | Scaffold Rust project using axum | Core schemas | 1 day |
@@ -262,7 +262,7 @@ See: [charting-app-js/TODO.md](../charting-app-js/TODO.md)
 ### Component Progress
 | Component | Epic | Behaviors | Complete | In Progress | Blocked |
 |-----------|------|-----------|----------|-------------|---------|
-| ProtoBuf Schemas | epic-FDP-0001 | 10 | 6 (60%) | 0 | 0 |
+| ProtoBuf Schemas | epic-FDP-0001 | 10 | 7 (70%) | 0 | 0 |
 | API Gateway | epic-FDP-0001 | 6 | 0 (0%) | 0 | 0 |
 | Frontend | epic-FDP-0002 | 6 | 0 (0%) | 0 | 0 |
 
