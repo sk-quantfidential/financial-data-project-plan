@@ -1,3 +1,6 @@
+PULL_*.md
+PR_*.md
+
 # Claude Configuration (IP separated)
 .claude/
 .gitmodules
