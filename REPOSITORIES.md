@@ -8,10 +8,16 @@ This document defines the component repositories that make up the Financial Data
 
 ```text
 Financial Data Platform
-├── project-plan/              # This repository - master coordination
+├── project-plan/              # Master coordination repository
 ├── protobuf-schemas/          # Protocol Buffer schema definitions
+│
 ├── charting-api-gw-rust/      # Rust API gateway and backend services
-└── charting-app-js/           # Next.js frontend application
+├── client-gw-core-py/         # Python async WebSocket gateway core library
+├── deribit-client-gw-py/      # Python Deribit exchange WebSocket gateway
+│
+├── charting-app-js/           # Next.js frontend application for charting
+│
+└── orchestrator-docker/       # Docker Compose orchestration for deployment
 ```
 
 ## Component Repository Definitions
@@ -150,6 +156,142 @@ Financial Data Platform
 - **WebSocket**: Real-time data streaming from backend
 - **OAuth2**: User authentication flow
 
+### 5. Client Gateway Core Library (Python)
+
+**Repository**: `financial-data/client-gw-core-py/`
+**Type**: Shared Library
+**Technology**: Python 3.13+ (asyncio, Pydantic)
+**Status**: Active
+
+**Purpose**: Generic async Python library providing reusable components for building WebSocket gateway services following Clean Architecture principles.
+
+**Responsibilities**:
+- Framework-agnostic WebSocket gateway patterns
+- Production-ready resilience patterns (circuit breakers, exponential backoff)
+- Caching implementations (LRU, TTL)
+- Connection state management
+- Graceful shutdown coordination
+- Observability abstractions (logging, metrics, tracing)
+
+**Key Files**:
+- `src/client_gw_core/` - Python package
+  - `domain/` - Pure business logic (cache, resilience, exceptions)
+  - `ports/` - Interface definitions (Protocol classes)
+  - `adapters/` - Concrete implementations (observability)
+  - `config/` - Configuration management
+- `tests/unit/` - Unit tests
+- `TODO.md` - Component milestone tracking
+- `CLAUDE.md` - Component-specific instructions
+
+**Claude Configuration**:
+- `.claude/` - Component-specific overrides
+- `CLAUDE.md` - Python conventions and architecture guidelines
+
+**Integration Points**:
+- **deribit-client-gw-py**: Consumed as a library dependency
+- **Future exchange gateways**: Reusable for any exchange implementation
+
+**Design Principles**:
+- Zero exchange-specific dependencies
+- Clean Architecture with strict layer separation
+- Comprehensive test coverage (target: 95%)
+- Type-safe with Python type hints
+
+### 6. Deribit Client Gateway (Python)
+
+**Repository**: `financial-data/deribit-client-gw-py/`
+**Type**: Backend Service
+**Technology**: Python 3.13+ (asyncio, websockets)
+**Status**: Active
+
+**Purpose**: Deribit exchange-specific WebSocket gateway implementation using the client-gw-core-py library.
+
+**Responsibilities**:
+- WebSocket connection to Deribit exchange
+- Market data subscription and streaming
+- Order book management and updates
+- Trade data ingestion
+- Deribit-specific message parsing
+- Kafka publishing for downstream consumers
+
+**Key Files**:
+- `src/deribit_ws_gw/` - Python package
+  - `domain/` - Deribit-specific domain logic
+  - `adapters/` - Deribit API client, message parsers
+  - `config/` - Deribit configuration (endpoints, auth)
+- `tests/` - Unit and integration tests
+- `TODO.md` - Component milestone tracking
+- `CLAUDE.md` - Component-specific instructions
+
+**Claude Configuration**:
+- `.claude/` - Component-specific overrides
+- `CLAUDE.md` - Deribit integration guidelines
+
+**Integration Points**:
+- **client-gw-core-py**: Imports core library components
+- **protobuf-schemas**: Uses schemas for data serialization
+- **Kafka**: Publishes market data messages
+- **Deribit Exchange**: WebSocket connection for live data
+
+**Dependencies**:
+- Requires `client-gw-core-py` as a library
+- Requires Kafka for message publishing
+- Optional: TimescaleDB for historical data storage
+
+### 7. Docker Orchestration (Infrastructure)
+
+**Repository**: `financial-data/orchestrator-docker/`
+**Type**: Infrastructure
+**Technology**: Docker Compose
+**Status**: Active
+
+**Purpose**: Multi-service deployment orchestration for local development and testing environments.
+
+**Responsibilities**:
+- Docker Compose configuration for all services
+- Service dependency management
+- Volume and network configuration
+- Environment-specific overrides (dev, test, staging)
+- Service health checks and restart policies
+
+**Key Files**:
+- `docker-compose.yml` - Base service definitions
+- `docker-compose.dev.yml` - Development overrides
+- `docker-compose.test.yml` - Test environment overrides
+- `docker-compose.prod.yml` - Production-like configuration
+- `configs/` - Service-specific configuration files
+- `scripts/` - Helper scripts (startup, teardown, logs)
+
+**Services Managed**:
+- **TimescaleDB**: PostgreSQL with TimescaleDB extension
+- **Kafka + Zookeeper**: Message streaming infrastructure
+- **Schema Registry**: ProtoBuf schema management
+- **charting-api-gw-rust**: Rust API gateway service
+- **deribit-client-gw-py**: Deribit WebSocket gateway
+- **charting-app-js**: Next.js frontend application
+- **Prometheus**: Metrics collection (future)
+- **Grafana**: Observability dashboards (future)
+
+**Usage Examples**:
+```bash
+# Start all services for development
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+
+# Start test environment
+docker-compose -f docker-compose.test.yml up -d
+
+# View logs for specific service
+docker-compose logs -f charting-api-gw-rust
+
+# Stop all services
+docker-compose down
+```
+
+**Integration Points**:
+- **All backend services**: Provides runtime environment
+- **Databases and queues**: Provisions infrastructure dependencies
+- **Development workflow**: Enables local multi-service testing
+
 ## Component Context Files
 
 Each component repository contains a `.claude_component_context.md` file that links back to this project plan:
@@ -253,19 +395,45 @@ project-plan/
 ### Build Order Dependencies
 
 ```text
-protobuf-schemas (generates bindings)
-    ↓
-charting-api-gw-rust (consumes Rust bindings)
-    ↓
-charting-app-js (consumes TypeScript types + API)
+1. protobuf-schemas (generates bindings for all languages)
+      ├──[Rust]──────> charting-api-gw-rust
+      ├──[Python]────> deribit-client-gw-py
+      └──[TypeScript]> charting-app-js
+
+2. client-gw-core-py (shared library)
+      └──[imports]───> deribit-client-gw-py
+
+3. Backend services provide APIs
+      charting-api-gw-rust ──[REST API]──> charting-app-js
+      deribit-client-gw-py ──[Kafka]────> charting-api-gw-rust
 ```
 
 ### Runtime Dependencies
 
 ```text
-TimescaleDB ← charting-api-gw-rust ← charting-app-js
-     ↑               ↑
-   Kafka      OAuth2 Provider
+Infrastructure Layer:
+  ┌─────────────┐  ┌──────────┐  ┌────────────────┐
+  │ TimescaleDB │  │  Kafka   │  │ Deribit Exchange│
+  └──────┬──────┘  └────┬─────┘  └────────┬───────┘
+         │              │                   │
+Backend Services:      │                   │
+  ┌─────▼──────────────▼─────┐     ┌──────▼──────────┐
+  │ charting-api-gw-rust     │     │ deribit-client- │
+  │ (REST API + Kafka)       │◄────│ gw-py (WebSocket│
+  └──────────────┬───────────┘     │ + Kafka pub)    │
+                 │                  └─────────────────┘
+                 │                           │
+Frontend:        │                           │
+  ┌──────────────▼───────────┐               │
+  │ charting-app-js          │               │
+  │ (Next.js + Charts)       │               │
+  └──────────────────────────┘               │
+                                              │
+Orchestration:                                │
+  ┌──────────────────────────────────────────▼─┐
+  │ orchestrator-docker (Docker Compose)       │
+  │ Manages all services + infrastructure      │
+  └────────────────────────────────────────────┘
 ```
 
 ## Deployment Coordination
@@ -279,11 +447,19 @@ TimescaleDB ← charting-api-gw-rust ← charting-app-js
 
 ### Version Compatibility Matrix
 
-| protobuf-schemas | charting-api-gw-rust | charting-app-js | Status |
-|------------------|---------------------|-----------------|---------|
-| v1.0.0           | v1.0.0              | v1.0.0          | ✅ Stable |
-| v1.1.0           | v1.0.1              | v1.0.1          | 🧪 Testing |
-| v1.2.0           | v1.1.0              | v1.1.0          | 📋 Planned |
+| Schemas | Core Lib | API GW (Rust) | Deribit GW | Frontend | Status |
+|---------|----------|---------------|------------|----------|---------|
+| v1.0.0  | v0.1.0   | v1.0.0        | v0.1.0     | v1.0.0   | ✅ Stable |
+| v1.1.0  | v0.1.1   | v1.0.1        | v0.1.1     | v1.0.1   | 🧪 Testing |
+| v1.2.0  | v0.2.0   | v1.1.0        | v0.2.0     | v1.1.0   | 📋 Planned |
+
+**Component Abbreviations:**
+- **Schemas**: `protobuf-schemas`
+- **Core Lib**: `client-gw-core-py`
+- **API GW (Rust)**: `charting-api-gw-rust`
+- **Deribit GW**: `deribit-client-gw-py`
+- **Frontend**: `charting-app-js`
+- **Orchestrator**: `orchestrator-docker` (version tracks docker-compose spec version)
 
 ## Health Checks
 
