@@ -168,6 +168,154 @@
 | Document schema evolution and API contracts | All | Technical documentation |
 | Add automated compatibility testing across schema versions | ProtoBuf Schemas | Regression prevention |
 
+---
+
+## Epic GWC-0002: Generic Async HTTP/WebSocket Client Core ✅
+
+**Title**: Generic Async HTTP/WebSocket Client Core
+**Goal**: Build reusable async client infrastructure for exchange integrations.
+**Status**: Milestone 2 Complete
+**Components Involved**: client-gw-core-py, coinbase-client-gw-py, deribit-client-gw-py
+
+### ✅ Completed Milestones
+
+#### Milestone 1: Core Client Infrastructure (client-gw-core-py)
+- [x] HttpClient with rate limiting (FixedDelayConfig)
+- [x] RetryConfig with exponential backoff (BackoffConfig)
+- [x] WsClient for WebSocket connections
+- [x] Dependency injection patterns
+
+#### Milestone 2: Coinbase Migration (coinbase-client-gw-py)
+- [x] CoinbaseHttpClient extending HttpClient
+- [x] Coinbase authentication (CB-ACCESS-KEY, CB-ACCESS-SIGN, CB-ACCESS-PASSPHRASE)
+- [x] CoinbaseProductService with pagination
+- [x] Removed deprecated BaseService (aiohttp)
+- [x] Package renamed: coinbase_api_gw → coinbase_client_gw
+- [x] 60 unit tests passing
+
+#### Milestone 3: Deribit WebSocket Client (deribit-client-gw-py)
+- [x] Full Clean Architecture implementation
+- [x] DeribitWsClient with reconnection logic
+- [x] Command pattern for API calls
+- [x] BDD testing with pytest-bdd
+
+---
+
+## Epic OKX-0001: OKX Public Market Data Client 🚧
+
+**Title**: OKX Public Market Data Client
+**Goal**: Build async Python client for OKX Exchange public market data.
+**Status**: In Progress (Milestone 1)
+**Components Involved**: okx-client-gw-py, client-gw-core-py
+
+### Overview
+
+Implement production-ready async client for OKX Exchange using Clean Architecture
+patterns from deribit-client-gw-py and HTTP patterns from coinbase-client-gw-py.
+
+**OKX API Reference:**
+- REST Base: `https://www.okx.com`
+- WebSocket Public: `wss://ws.okx.com:8443/ws/v5/public`
+- Response Format: `{"code": "0", "msg": "", "data": [...]}`
+
+### 🚧 Milestone 1: Project Scaffold & Configuration
+
+**Branch:** `feature/epic-OKX-0001-milestone-1-scaffold`
+**Status:** In Progress
+
+| Task | Status | Description |
+|------|--------|-------------|
+| Update TODO-MASTER.md | ✅ | Add Epic OKX-0001 tracking |
+| Create directory structure | 📋 | Clean Architecture layout |
+| Create pyproject.toml | 📋 | Dependencies and config |
+| Create core/config.py | 📋 | OkxConfig dataclass |
+| Create core/exceptions.py | 📋 | OkxApiError, OkxConnectionError |
+| Create component TODO.md | 📋 | Component task tracking |
+
+### 📋 Milestone 2: Domain Models
+
+**Status:** Planned
+
+- [ ] Instrument model with InstType enum
+- [ ] Ticker value object
+- [ ] Candle (OHLCV) value object
+- [ ] Trade value object
+- [ ] OrderBook and OrderBookLevel models
+- [ ] Enums (Bar granularity, ChannelType)
+
+### 📋 Milestone 3: Port Interfaces
+
+**Status:** Planned
+
+- [ ] OkxHttpClientProtocol
+- [ ] OkxWsClientProtocol
+- [ ] Response types
+
+### 📋 Milestone 4: HTTP Adapter
+
+**Status:** Planned
+
+- [ ] OkxHttpClient extending HttpClient
+- [ ] OKX response parsing (code/msg/data)
+- [ ] Rate limiting (20 req/sec public)
+- [ ] Retry logic for 5xx errors
+
+### 📋 Milestone 5: HTTP Commands
+
+**Status:** Planned
+
+- [ ] OkxCommand[T] base class
+- [ ] GetInstrumentsCommand
+- [ ] GetTickerCommand
+- [ ] GetCandlesCommand
+- [ ] GetOrderBookCommand
+- [ ] GetTradesCommand
+
+### 📋 Milestone 6: HTTP Services
+
+**Status:** Planned
+
+- [ ] MarketDataService with DI
+- [ ] get_candles() with pagination
+- [ ] stream_candles() async generator
+
+### 📋 Milestone 7: WebSocket Adapter
+
+**Status:** Planned
+
+- [ ] OkxWsClient extending WsClient
+- [ ] Connection management
+- [ ] Subscription handling
+- [ ] Reconnection logic
+
+### 📋 Milestone 8: WebSocket Services
+
+**Status:** Planned
+
+- [ ] Ticker streaming
+- [ ] Candle streaming
+- [ ] Orderbook streaming
+
+### 📋 Milestone 9: Presentation Layer
+
+**Status:** Planned
+
+- [ ] CLI application with Typer
+- [ ] Candle download command
+- [ ] WebSocket streaming command
+
+### 📋 Milestone 10: Testing & Documentation
+
+**Status:** Planned
+
+- [ ] Unit tests for domain models
+- [ ] Unit tests for commands (respx)
+- [ ] Integration tests
+- [ ] BDD feature tests
+- [ ] README documentation
+
+---
+
 ## Component-Specific Backlogs
 
 ### ProtoBuf Schemas (`protobuf-schemas`)
@@ -187,6 +335,30 @@ See: [charting-app-js/TODO.md](../charting-app-js/TODO.md)
 - Current focus: Next.js setup and charting components (epic-FDP-0002)
 - Next priority: Advanced UI features
 - Tech debt: Component architecture and state management
+
+### Client Gateway Core (`client-gw-core-py`)
+See: [client-gw-core-py/TODO.md](../client-gw-core-py/TODO.md)
+- Current focus: ✅ Epic GWC-0002 Milestone 1 complete
+- Provides: HttpClient, WsClient, rate limiting, retry logic
+- Used by: coinbase-client-gw-py, deribit-client-gw-py, okx-client-gw-py
+
+### Coinbase Client Gateway (`coinbase-client-gw-py`)
+See: [coinbase-client-gw-py/TODO.md](../coinbase-client-gw-py/TODO.md)
+- Current focus: ✅ Epic GWC-0002 Milestone 2 complete
+- Features: HTTP candle streaming with pagination
+- Tech debt: None (clean migration complete)
+
+### Deribit Client Gateway (`deribit-client-gw-py`)
+See: [deribit-client-gw-py/TODO.md](../deribit-client-gw-py/TODO.md)
+- Current focus: ✅ Epic GWC-0002 Milestone 3 complete
+- Features: WebSocket streaming, Command pattern, BDD testing
+- Architecture: Full Clean Architecture reference implementation
+
+### OKX Client Gateway (`okx-client-gw-py`)
+See: [okx-client-gw-py/TODO.md](../okx-client-gw-py/TODO.md)
+- Current focus: 🚧 Epic OKX-0001 Milestone 1 in progress
+- Planned: HTTP + WebSocket public market data client
+- Architecture: Clean Architecture (following deribit patterns)
 
 ## Cross-Component Integration Points 🔌
 
