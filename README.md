@@ -163,3 +163,12 @@ Would you like help generating a scoped PAT description for your use case, or se
 ## Extensibility
 
 The schema will evolve to include workflow requests and responses embedding these data types, supporting a web application similar to [YCharts](https://ycharts.com).
+
+## Jupyter environment
+
+```sh
+conda create --name py313_jupyter_data_analysis python=3.13
+conda activate py313_jupyter_data_analysis
+conda install -c conda-forge numpy scipy opencv scikit-learn pytorch xgboost pandas matplotlib plotly statsmodels seaborn dask pyspark
+uv pip install
+```
