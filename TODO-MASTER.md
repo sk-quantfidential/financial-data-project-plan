@@ -316,6 +316,59 @@ patterns from deribit-client-gw-py and HTTP patterns from coinbase-client-gw-py.
 
 ---
 
+## Epic GWC-0003: Candle Processing Shared Library 🚧
+
+**Title**: Candle Processing Shared Library
+**Goal**: Centralize candle gap detection/filling in client-gw-core-py with Protocol-based interface.
+**Status**: In Progress
+**Components Involved**: client-gw-core-py, coinbase-client-gw-py, okx-client-gw-py
+
+### Overview
+
+Move gap detection and interpolation logic from coinbase-client-gw-py to client-gw-core-py
+as a shared service. Creates `CandleProtocol` to ensure Coinbase and OKX candle models
+conform to a common interface (`timestamp`, `time_delta`, OHLCV fields).
+
+**Key Design Decisions:**
+- Canonical time field: `timestamp` (OKX convention)
+- Granularity field: `time_delta` (required in protocol)
+- Factory pattern for creating exchange-specific candle instances
+
+### 🚧 Milestone 1: CandleProtocol & Processing Core
+
+**Branch:** `feature/epic-GWC-0003-candle-processing`
+**Status:** In Progress
+
+| Task | Status | Description |
+|------|--------|-------------|
+| Create CandleProtocol | 📋 | ports/candle.py with timestamp, time_delta, OHLCV |
+| Create CandleFactory protocol | 📋 | Generic factory for candle creation |
+| Create candles_processing.py | 📋 | detect_gaps(), interpolate_candles(), fill_missing_candles() |
+| Add stream_filled_candles() | 📋 | Async generator for streaming with gap filling |
+
+### 📋 Milestone 2: Exchange Adapter Updates
+
+**Status:** Planned
+
+| Task | Status | Description |
+|------|--------|-------------|
+| Add timestamp property to Coinbase Candle | 📋 | Alias for `time` field |
+| Add time_delta field to OKX Candle | 📋 | Required for protocol compliance |
+| Create CoinbaseCandleFactory | 📋 | Factory implementation for Coinbase |
+| Create OkxCandleFactory | 📋 | Factory implementation for OKX |
+
+### 📋 Milestone 3: Service Integration
+
+**Status:** Planned
+
+| Task | Status | Description |
+|------|--------|-------------|
+| Add fill_gaps parameter to Coinbase get_candles() | 📋 | Optional gap filling in service |
+| Remove old data_processing.py | 📋 | Clean up deprecated module |
+| Unit tests for gap detection/interpolation | 📋 | Comprehensive test coverage |
+
+---
+
 ## Component-Specific Backlogs
 
 ### ProtoBuf Schemas (`protobuf-schemas`)
